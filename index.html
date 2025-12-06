@@ -1,68 +1,177 @@
-Hi, I’m Linh! 🌷
-Welcome to my personal website ✨
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Linh Tran - Personal Website</title>
 
-🌸 About Me
-I’m a Business Administration student who loves exploring the intersection between business, innovation, and sustainable development.
-I enjoy researching real-world business cases, learning digital tools, and creating small projects that help me improve my academic and personal skills.
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-🎯 What I Do
-Study business, management, and organizational behavior
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #c7f9ff; 
+            color: #333;
+        }
 
+        header {
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            color: white;
+            padding: 70px 20px;
+            text-align: center;
+        }
 
-Explore topics related to green innovation and SME performance
+        /* Avatar style */
+        .avatar {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid rgba(255, 255, 255, 0.85);
+            margin-bottom: 18px;
+            animation: fadeIn 2s ease;
+        }
 
+        header h1 {
+            font-size: 55px;
+            margin: 0;
+            animation: fadeIn 1.5s ease;
+            font-weight: 700;
+        }
 
-Learn data tools for research and analysis
+        header p {
+            font-size: 20px;
+            opacity: 0.9;
+            margin-top: 12px;
+        }
 
+        section {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
 
-Build my GitHub and personal learning portfolio
+        h2 {
+            color: #0077aa;
+            margin-bottom: 8px;
+        }
 
+        .card {
+            background: white;
+            padding: 28px;
+            border-radius: 14px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+            line-height: 1.7;
+        }
 
+        .skill-tag {
+            display: inline-block;
+            background: #00b7ff;
+            color: white;
+            padding: 7px 15px;
+            border-radius: 18px;
+            font-size: 13px;
+            margin: 5px;
+        }
 
-📚 Interests
-Sustainability & Green Innovation
+        footer {
+            text-align: center;
+            padding: 25px 15px;
+            font-size: 14px;
+            background: #b3eff8;
+            margin-top: 45px;
+        }
 
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
 
-Business Research & Strategic Thinking
+<body>
 
+    <!-- HEADER -->
+    <header>
+        <img src="avatar.png" alt="Linh's Avatar" class="avatar">
+        <h1>Hello, I'm Linh 🩵</h1>
+        <p>Aspiring Developer • Research Lover • Lifelong Learner</p>
+    </header>
 
-Organizational Behavior & Human Motivation
+    <section>
 
+        <!-- ABOUT ME -->
+        <div class="card">
+            <h2>✨ About Me</h2>
+            <p>
+                Mình là <strong>Linh Tran</strong>, một người luôn tò mò về cách mọi thứ vận hành và thích khám phá công nghệ.
+                Hành trình với lập trình của mình bắt đầu từ những dòng HTML/CSS đơn giản, và dần dần mình bắt đầu tìm hiểu sâu hơn
+                về cách tạo website, quản lý dự án bằng GitHub và xây dựng personal brand thông qua portfolio online.
+            </p>
+            <p>
+                Ngoài coding, mình còn dành nhiều thời gian cho:  
+                • Tâm lý học  
+                • Research khoa học  
+                • Productivity & note-taking  
+                • Thiết kế UI cơ bản  
+                • Viết báo cáo và phân tích học thuật  
+            </p>
+            <p>
+                Mục tiêu trong năm tới là học JavaScript, xây dựng vài mini projects và tạo một portfolio chỉnh chu để phục vụ học tập/công việc.
+            </p>
+        </div>
 
-Productivity, Writing, and Digital Tools
+        <!-- SKILLS -->
+        <div class="card">
+            <h2>🚀 Skills & Tools</h2>
+            <p>Dưới đây là những gì mình đang học và sử dụng:</p>
 
+            <div>
+                <span class="skill-tag">HTML</span>
+                <span class="skill-tag">CSS</span>
+                <span class="skill-tag">JavaScript (Basic)</span>
+                <span class="skill-tag">Git</span>
+                <span class="skill-tag">GitHub</span>
+                <span class="skill-tag">VS Code</span>
+                <span class="skill-tag">Research Writing</span>
+                <span class="skill-tag">Academic Workflow</span>
+                <span class="skill-tag">Data Searching</span>
+                <span class="skill-tag">English B2</span>
+                <span class="skill-tag">Time Management</span>
+            </div>
+        </div>
 
+        <!-- PROJECTS -->
+        <div class="card">
+            <h2>📁 Projects & Learning Journey</h2>
+            <ul>
+                <li><strong>🌐 Personal Website</strong> – Website này, xây bằng HTML/CSS + GitHub Pages.</li>
+                <li><strong>📚 Study Notes Hub</strong> – Ghi chú các môn như Psychology, OB, Research Method.</li>
+                <li><strong>🧪 GitHub Experiments</strong> – Repo thực hành Git: pull/push/branch/merge.</li>
+                <li><strong>🎨 UI Components</strong> – Tạo button, card, navbar bằng CSS.</li>
+                <li><strong>📝 Mini Blog</strong> – Các bài viết ngắn: phân tích, cảm nhận, review sách.</li>
+            </ul>
+        </div>
 
-📝 Current Goals
-Build a clean personal portfolio
+        <!-- CONTACT -->
+        <div class="card">
+            <h2>📬 Contact</h2>
+            <p>Kết nối với mình tại:</p>
+            <ul>
+                <li>Email: <strong>khanhlinhtransunflower@gmail.com</strong></li>
+                <li>GitHub: <strong>Lin-h-82</strong></li>
+            </ul>
+        </div>
 
+    </section>
 
-Improve my research writing skills
+    <footer>
+        © 2025 Linh Tran — Built with 🩵 GitHub Pages
+    </footer>
 
-
-Learn basic Python for data analysis
-
-
-Complete 2–3 mini research/learning projects
-
-
-Grow step by step, consistently and intentionally
-
-
-
-📬 Contact
-Email: (add your email here)
-
-
-LinkedIn: (add your link here)
-
-
-GitHub: (your GitHub username)
-
-
-
-💜 Final Note
-Thank you for visiting my little corner on the internet.
-More updates and projects are coming soon — stay tuned! ✨
-
-
+</body>
+</html>
