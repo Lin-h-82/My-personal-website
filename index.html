@@ -64,6 +64,8 @@
       cursor: pointer;
     }
 
+    button[disabled] { opacity: 0.6; cursor: not-allowed; }
+
     .note { font-size: 0.85rem; opacity: 0.85; margin-top: 8px; }
 
     .music {
@@ -116,7 +118,7 @@
       <input id="name" placeholder="Tên của bạn" />
       <div class="note">Đây là mục Optional. Bạn có thể bỏ qua ha.</div>
 
-      <button onclick="submitForm()">Send</button>
+      <button id="sendBtn" onclick="submitForm()">Send</button>
     </div>
   </div>
 
@@ -135,37 +137,51 @@
   </div>
 
   <script>
+    // Navigation
     function nextPage(n) {
       document.querySelectorAll('.container').forEach(p => p.classList.add('hidden'));
-      document.getElementById('page' + n).classList.remove('hidden');
+      const target = document.getElementById('page' + n);
+      if (target) target.classList.remove('hidden');
     }
 
+    // Music toggle
     function toggleMusic() {
       const audio = document.getElementById('bgm');
+      if (!audio) return;
       if (audio.paused) audio.play(); else audio.pause();
     }
 
+    // Submit handler (uses no-cors due to GAS CORS limitations)
     function submitForm() {
+      const btn = document.getElementById('sendBtn');
+      if (btn) btn.disabled = true;
+
       const data = {
-        q1: document.getElementById('q1').value,
-        q2: document.getElementById('q2').value,
-        name: document.getElementById('name').value
+        q1: document.getElementById('q1')?.value || "",
+        q2: document.getElementById('q2')?.value || "",
+        name: document.getElementById('name')?.value || ""
       };
 
       fetch("https://script.google.com/macros/s/AKfycbwJuZJj9LENc_X-OaKBhIbb1ZWXE4WxcmdkRFqukIyHzmqRM6xhdZn3QgQhRSOn_r5Y/exec", {
         method: "POST",
         mode: "no-cors",
         body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
-      .then(() => {
+        headers: { "Content-Type": "application/json" }
+      }).finally(() => {
+        // Always navigate to Thank You for UX consistency
         nextPage(4);
-      })
-      });
+        if (btn) btn.disabled = false;
       });
     }
+
+    // --- Lightweight self-tests (run once) ---
+    (function runSelfTests(){
+      console.assert(typeof nextPage === 'function', 'nextPage should be defined');
+      console.assert(typeof toggleMusic === 'function', 'toggleMusic should be defined');
+      console.assert(typeof submitForm === 'function', 'submitForm should be defined');
+      console.assert(document.getElementById('page1'), 'page1 should exist');
+      console.assert(document.getElementById('page4'), 'page4 should exist');
+    })();
   </script>
 
 </body>
