@@ -1,177 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Linh Tran - Personal Website</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feedback</title>
+  <style>
+    * { box-sizing: border-box; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    html, body { margin: 0; padding: 0; height: 100%; }
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    body {
+      background: url('background.jpg') center / cover no-repeat fixed;
+      color: #fff;
+    }
 
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: #c7f9ff; 
-            color: #333;
-        }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      z-index: -1;
+    }
 
-        header {
-            background: linear-gradient(135deg, #00c6ff, #0072ff);
-            color: white;
-            padding: 70px 20px;
-            text-align: center;
-        }
+    .container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+    }
 
-        /* Avatar style */
-        .avatar {
-            width: 160px;
-            height: 160px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 5px solid rgba(255, 255, 255, 0.85);
-            margin-bottom: 18px;
-            animation: fadeIn 2s ease;
-        }
+    .card {
+      width: 100%;
+      max-width: 520px;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(6px);
+      border-radius: 16px;
+      padding: 24px;
+    }
 
-        header h1 {
-            font-size: 55px;
-            margin: 0;
-            animation: fadeIn 1.5s ease;
-            font-weight: 700;
-        }
+    h1 { font-size: 1.6rem; margin-bottom: 24px; }
+    h2 { font-size: 1.1rem; margin-top: 20px; }
 
-        header p {
-            font-size: 20px;
-            opacity: 0.9;
-            margin-top: 12px;
-        }
+    textarea, input {
+      width: 100%;
+      border-radius: 10px;
+      border: none;
+      padding: 12px;
+      margin-top: 10px;
+      font-size: 0.95rem;
+    }
 
-        section {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
+    textarea { min-height: 90px; resize: vertical; }
 
-        h2 {
-            color: #0077aa;
-            margin-bottom: 8px;
-        }
+    button {
+      margin-top: 24px;
+      padding: 12px 20px;
+      border-radius: 999px;
+      border: none;
+      background: #ffffff;
+      color: #000;
+      font-size: 1rem;
+      cursor: pointer;
+    }
 
-        .card {
-            background: white;
-            padding: 28px;
-            border-radius: 14px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            margin-bottom: 25px;
-            line-height: 1.7;
-        }
+    .note { font-size: 0.85rem; opacity: 0.85; margin-top: 8px; }
 
-        .skill-tag {
-            display: inline-block;
-            background: #00b7ff;
-            color: white;
-            padding: 7px 15px;
-            border-radius: 18px;
-            font-size: 13px;
-            margin: 5px;
-        }
+    .music {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
 
-        footer {
-            text-align: center;
-            padding: 25px 15px;
-            font-size: 14px;
-            background: #b3eff8;
-            margin-top: 45px;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
+    .hidden { display: none; }
+  </style>
 </head>
-
 <body>
 
-    <!-- HEADER -->
-    <header>
-        <img src="avatar.png" alt="Linh's Avatar" class="avatar">
-        <h1>Hello, I'm Linh 🩵</h1>
-        <p>Aspiring Developer • Research Lover • Lifelong Learner</p>
-    </header>
+  <audio id="bgm" src="Try Everything.mp3" loop></audio>
 
-    <section>
+  <div class="music" onclick="toggleMusic()">
+    🎵 <span>For the best experience, tap me ^^</span>
+  </div>
 
-        <!-- ABOUT ME -->
-        <div class="card">
-            <h2>✨ About Me</h2>
-            <p>
-                Mình là <strong>Linh Tran</strong>, một người luôn tò mò về cách mọi thứ vận hành và thích khám phá công nghệ.
-                Hành trình với lập trình của mình bắt đầu từ những dòng HTML/CSS đơn giản, và dần dần mình bắt đầu tìm hiểu sâu hơn
-                về cách tạo website, quản lý dự án bằng GitHub và xây dựng personal brand thông qua portfolio online.
-            </p>
-            <p>
-                Ngoài coding, mình còn dành nhiều thời gian cho:  
-                • Tâm lý học  
-                • Research khoa học  
-                • Productivity & note-taking  
-                • Thiết kế UI cơ bản  
-                • Viết báo cáo và phân tích học thuật  
-            </p>
-            <p>
-                Mục tiêu trong năm tới là học JavaScript, xây dựng vài mini projects và tạo một portfolio chỉnh chu để phục vụ học tập/công việc.
-            </p>
-        </div>
+  <!-- PAGE 1 -->
+  <div class="container" id="page1">
+    <div class="card">
+      <h1>Hello. You look lovely today ^^</h1>
+      <button onclick="nextPage(2)">Shall we start?</button>
+    </div>
+  </div>
 
-        <!-- SKILLS -->
-        <div class="card">
-            <h2>🚀 Skills & Tools</h2>
-            <p>Dưới đây là những gì mình đang học và sử dụng:</p>
+  <!-- PAGE 2 -->
+  <div class="container hidden" id="page2">
+    <div class="card">
+      <h2>Cảm nhận của bạn về phần thuyết trình của Khánh Linh</h2>
+      <textarea id="q1" placeholder="Bạn ấn tượng điều gì? Có điểm nào bạn thấy cần cải thiện không?"></textarea>
 
-            <div>
-                <span class="skill-tag">HTML</span>
-                <span class="skill-tag">CSS</span>
-                <span class="skill-tag">JavaScript (Basic)</span>
-                <span class="skill-tag">Git</span>
-                <span class="skill-tag">GitHub</span>
-                <span class="skill-tag">VS Code</span>
-                <span class="skill-tag">Research Writing</span>
-                <span class="skill-tag">Academic Workflow</span>
-                <span class="skill-tag">Data Searching</span>
-                <span class="skill-tag">English B2</span>
-                <span class="skill-tag">Time Management</span>
-            </div>
-        </div>
+      <h2>Bạn có muốn gửi lời gì tới ban RnD trong nhiệm kỳ sắp tới không?</h2>
+      <textarea id="q2" placeholder="Một lời nhắn, một mong muốn, hay chỉ là vài dòng lặt vặt thôi cũng được."></textarea>
 
-        <!-- PROJECTS -->
-        <div class="card">
-            <h2>📁 Projects & Learning Journey</h2>
-            <ul>
-                <li><strong>🌐 Personal Website</strong> – Website này, xây bằng HTML/CSS + GitHub Pages.</li>
-                <li><strong>📚 Study Notes Hub</strong> – Ghi chú các môn như Psychology, OB, Research Method.</li>
-                <li><strong>🧪 GitHub Experiments</strong> – Repo thực hành Git: pull/push/branch/merge.</li>
-                <li><strong>🎨 UI Components</strong> – Tạo button, card, navbar bằng CSS.</li>
-                <li><strong>📝 Mini Blog</strong> – Các bài viết ngắn: phân tích, cảm nhận, review sách.</li>
-            </ul>
-        </div>
+      <button onclick="nextPage(3)">Continue</button>
+    </div>
+  </div>
 
-        <!-- CONTACT -->
-        <div class="card">
-            <h2>📬 Contact</h2>
-            <p>Kết nối với mình tại:</p>
-            <ul>
-                <li>Email: <strong>khanhlinhtransunflower@gmail.com</strong></li>
-                <li>GitHub: <strong>Lin-h-82</strong></li>
-            </ul>
-        </div>
+  <!-- PAGE 3 -->
+  <div class="container hidden" id="page3">
+    <div class="card">
+      <h2>Họ và tên</h2>
+      <input id="name" placeholder="Tên của bạn" />
+      <div class="note">Đây là mục Optional. Bạn có thể bỏ qua ha.</div>
 
-    </section>
+      <button onclick="submitForm()">Send</button>
+    </div>
+  </div>
 
-    <footer>
-        © 2025 Linh Tran — Built with 🩵 GitHub Pages
-    </footer>
+  <!-- PAGE 4 -->
+  <div class="container hidden" id="page4">
+    <div class="card">
+      <h1>Thank you for filling the form!</h1>
+      <p style="line-height:1.6; font-size:0.95rem; margin-top:20px;">
+        <strong>Please remember:</strong><br><br>
+        “Không cần lo những gì bạn nói có to tát hay bổ ích không.<br>
+        Chỉ cần chúng ta ở bên nhau, có thể thoải mái nói ra<br>
+        những điều lặt vặt không kiêng dè<br>
+        đã là đáng quý rồi.”
+      </p>
+    </div>
+  </div>
+
+  <script>
+    function nextPage(n) {
+      document.querySelectorAll('.container').forEach(p => p.classList.add('hidden'));
+      document.getElementById('page' + n).classList.remove('hidden');
+    }
+
+    function toggleMusic() {
+      const audio = document.getElementById('bgm');
+      if (audio.paused) audio.play(); else audio.pause();
+    }
+
+    function submitForm() {
+      const data = {
+        q1: document.getElementById('q1').value,
+        q2: document.getElementById('q2').value,
+        name: document.getElementById('name').value
+      };
+
+      fetch("https://script.google.com/macros/s/AKfycbwJuZJj9LENc_X-OaKBhIbb1ZWXE4WxcmdkRFqukIyHzmqRM6xhdZn3QgQhRSOn_r5Y/exec", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .then(() => {
+        nextPage(4);
+      })
+      .catch(() => {
+        alert("Có lỗi xảy ra, bạn thử lại giúp mình nha.");
+      });
+    }
+  </script>
 
 </body>
 </html>
