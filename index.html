@@ -87,13 +87,13 @@
   <audio id="bgm" src="Solo Dance.mp3" loop></audio>
 
   <div class="music" onclick="toggleMusic()">
-    🎵 <span>For mutual experience, tap the icon ^^</span>
+    🎵 <span>For mutual experience, tap me ^^</span>
   </div>
 
   <!-- PAGE 1 -->
   <div class="container" id="page1">
     <div class="card">
-      <h1>Hello. Ai mà đáng yêu với tươi tắn thế? ^^ </h1>
+      <h1>Hello. Ai mà vừa xinh vừa tươi tắn thế? ^^</h1>
       <button onclick="nextPage(2)">Shall we start?</button>
     </div>
   </div>
@@ -101,10 +101,10 @@
   <!-- PAGE 2 -->
   <div class="container hidden" id="page2">
     <div class="card">
-      <h2>Cảm nhận của bạn về phần thuyết trình của Khánh Linh (Hoặc Overall Performance)</h2>
+      <h2>Cảm nhận của bạn về phần thuyết trình của Khánh Linh (Bạn có thể đánh giá tổng thể)</h2>
       <textarea id="q1" placeholder="Bạn ấn tượng điều gì? Có điểm nào bạn thấy cần cải thiện không?"></textarea>
 
-      <h2>Bạn có muốn gửi lời gì tới ban RnD nói riêng và Com nói chung trong nhiệm kỳ sắp tới không?</h2>
+      <h2>Bạn có muốn gửi lời gì tới ban RnD nói riêng và EZ Com nói chung trong nhiệm kỳ sắp tới không?</h2>
       <textarea id="q2" placeholder="Một lời nhắn, một mong muốn, hay chỉ là vài dòng lặt vặt thôi cũng được."></textarea>
 
       <button onclick="nextPage(3)">Continue</button>
@@ -115,8 +115,8 @@
   <div class="container hidden" id="page3">
     <div class="card">
       <h2>Họ và tên</h2>
-      <input id="name" placeholder="Tên của bạn, nickname cũng xin nốt ehe." />
-      <div class="note">Optional. Bạn có bỏ qua hong?</div>
+      <input id="name" placeholder="Tên của bạn" />
+      <div class="note">Optional. Liệu bạn có bỏ qua hong? 👀.</div>
 
       <button id="sendBtn" onclick="submitForm()">Send</button>
     </div>
@@ -137,29 +137,46 @@
   </div>
 
   <script>
-    // Navigation
+    // --- INIT ---
+    document.addEventListener('DOMContentLoaded', () => {
+      // Ensure first page is visible
+      nextPage(1);
+
+      // Try to autoplay music after first user interaction (mobile-safe)
+      document.body.addEventListener('click', autoPlayOnce, { once: true });
+    });
+
+    function autoPlayOnce() {
+      const audio = document.getElementById('bgm');
+      if (audio && audio.paused) {
+        audio.play().catch(() => {});
+      }
+    }
+
     function nextPage(n) {
       document.querySelectorAll('.container').forEach(p => p.classList.add('hidden'));
       const target = document.getElementById('page' + n);
       if (target) target.classList.remove('hidden');
     }
 
-    // Music toggle
     function toggleMusic() {
       const audio = document.getElementById('bgm');
       if (!audio) return;
-      if (audio.paused) audio.play(); else audio.pause();
+      if (audio.paused) {
+        audio.play().catch(() => {});
+      } else {
+        audio.pause();
+      }
     }
 
-    // Submit handler (uses no-cors due to GAS CORS limitations)
     function submitForm() {
-      const btn = document.getElementById('sendBtn');
+      const btn = document.querySelector('#page3 button');
       if (btn) btn.disabled = true;
 
       const data = {
-        q1: document.getElementById('q1')?.value || "",
-        q2: document.getElementById('q2')?.value || "",
-        name: document.getElementById('name')?.value || ""
+        q1: document.getElementById('q1')?.value || '',
+        q2: document.getElementById('q2')?.value || '',
+        name: document.getElementById('name')?.value || ''
       };
 
       fetch("https://script.google.com/macros/s/AKfycbwJuZJj9LENc_X-OaKBhIbb1ZWXE4WxcmdkRFqukIyHzmqRM6xhdZn3QgQhRSOn_r5Y/exec", {
@@ -168,20 +185,14 @@
         body: JSON.stringify(data),
         headers: { "Content-Type": "application/json" }
       }).finally(() => {
-        // Always navigate to Thank You for UX consistency
         nextPage(4);
-        if (btn) btn.disabled = false;
       });
     }
 
-    // --- Lightweight self-tests (run once) ---
-    (function runSelfTests(){
-      console.assert(typeof nextPage === 'function', 'nextPage should be defined');
-      console.assert(typeof toggleMusic === 'function', 'toggleMusic should be defined');
-      console.assert(typeof submitForm === 'function', 'submitForm should be defined');
-      console.assert(document.getElementById('page1'), 'page1 should exist');
-      console.assert(document.getElementById('page4'), 'page4 should exist');
-    })();
+    // --- BASIC RUNTIME CHECKS ---
+    console.assert(typeof nextPage === 'function', 'nextPage not defined');
+    console.assert(typeof toggleMusic === 'function', 'toggleMusic not defined');
+    console.assert(typeof submitForm === 'function', 'submitForm not defined');
   </script>
 
 </body>
