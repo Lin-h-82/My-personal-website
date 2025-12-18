@@ -90,6 +90,7 @@
 <!-- PAGE 1 -->
 <div class="container" id="page1">
   <div class="card">
+    <div class="error" style="display:none;color:#ffd6d6;font-size:0.85rem;margin-top:12px;">Vui lòng điền đầy đủ thông tin trước khi tiếp tục nha ^^</div>
     <h1>Hello. You look lovely today ^^</h1>
     <button onclick="nextPage(2)">Shall we start?</button>
   </div>
@@ -98,6 +99,7 @@
 <!-- PAGE 2 -->
 <div class="container hidden" id="page2">
   <div class="card">
+    <div class="error" style="display:none;color:#ffd6d6;font-size:0.85rem;margin-top:12px;">Vui lòng điền đầy đủ thông tin trước khi tiếp tục nha ^^</div>
     <h1>Personal Information</h1>
     <input id="name" placeholder="Họ và tên" />
     <input id="major" placeholder="Chuyên ngành theo học" />
@@ -111,6 +113,7 @@
 <!-- PAGE 3 -->
 <div class="container hidden" id="page3">
   <div class="card">
+    <div class="error" style="display:none;color:#ffd6d6;font-size:0.85rem;margin-top:12px;">Vui lòng điền đầy đủ thông tin trước khi tiếp tục nha ^^</div>
     <h1>Personal Desire</h1>
     <h2>Em mong đợi gì từ các thành viên khác trong ban? (Cụ thể tên càng tốt)</h2>
     <textarea id="d1" placeholder="Mình là 1 tổ đội, điều gì cũng nên thành thật với nhau ha."></textarea>
@@ -126,6 +129,7 @@
 <!-- PAGE 4 -->
 <div class="container hidden" id="page4">
   <div class="card">
+    <div class="error" style="display:none;color:#ffd6d6;font-size:0.85rem;margin-top:12px;">Vui lòng điền đầy đủ thông tin trước khi tiếp tục nha ^^</div>
     <h1>Our working spaces</h1>
     <div class="note">Your choice, but we go with majorities of course ^^</div>
     <h2>Em muốn tiếp nhận thông tin ở trên nền tảng nào?</h2>
@@ -139,6 +143,7 @@
 <!-- PAGE 5 -->
 <div class="container hidden" id="page5">
   <div class="card">
+    <div class="error" style="display:none;color:#ffd6d6;font-size:0.85rem;margin-top:12px;">Vui lòng điền đầy đủ thông tin trước khi tiếp tục nha ^^</div>
     <h1>Giỏi quá, hoàn thành xong rùi nè</h1>
     <p style="line-height:1.6; font-size:0.95rem; margin-top:20px;">
       Thank for for filling the form!<br><br>
@@ -152,71 +157,103 @@
 </div>
 
 <script>
-  // Cache elements safely after DOM is ready
-  document.addEventListener('DOMContentLoaded', () => {
-    window.name = document.getElementById('name');
-    window.major = document.getElementById('major');
-    window.phone = document.getElementById('phone');
-    window.email = document.getElementById('email');
-    window.ezemail = document.getElementById('ezemail');
-    window.d1 = document.getElementById('d1');
-    window.d2 = document.getElementById('d2');
-    window.d3 = document.getElementById('d3');
-    window.w1 = document.getElementById('w1');
-    window.w2 = document.getElementById('w2');
+  // === SAFE ELEMENT ACCESS HELPERS ===
+  const $ = (id) => document.getElementById(id);
 
+  document.addEventListener('DOMContentLoaded', () => {
     nextPage(1);
   });
 
   function nextPage(n) {
+    document.querySelectorAll('.error').forEach(e => e.style.display = 'none');
+
     if (n === 3) {
-      const fields = [name, major, phone, email, ezemail];
+      const fields = [$("name"), $("major"), $("phone"), $("email"), $("ezemail")];
       if (fields.some(f => !f || !f.value.trim())) {
-        alert('Định đi đâu đấy? I have eyes on you');
+        document.querySelector('#page2 .error').style.display = 'block';
         return;
       }
     }
 
     if (n === 4) {
-      const fields = [d1, d2, d3];
+      const fields = [$("d1"), $("d2"), $("d3")];
       if (fields.some(f => !f || !f.value.trim())) {
-        alert('Mấy câu này bắt buộc á, trả lời xíu xiu nhưng miễn ko mơ hồ :)');
+        document.querySelector('#page3 .error').style.display = 'block';
         return;
       }
     }
 
     document.querySelectorAll('.container').forEach(p => p.classList.add('hidden'));
-    const target = document.getElementById('page' + n);
+    const target = $("page" + n);
+    if (target) target.classList.remove('hidden');
+  }
+    }
+
+    if (n === 4) {
+      const fields = [$("d1"), $("d2"), $("d3")];
+      if (fields.some(f => !f || !f.value.trim())) {
+        alert('Trốn đi đâu đấy? I have eyes on you');
+        return;
+      }
+    }
+
+    document.querySelectorAll('.container').forEach(p => p.classList.add('hidden'));
+    const target = $("page" + n);
     if (target) target.classList.remove('hidden');
   }
 
   function toggleMusic() {
-    const audio = document.getElementById('bgm');
+    const audio = $('bgm');
     if (!audio) return;
     audio.paused ? audio.play().catch(() => {}) : audio.pause();
   }
 
-  // Mobile autoplay unlock
+  // Mobile audio unlock
   document.addEventListener('click', () => {
-    const audio = document.getElementById('bgm');
+    const audio = $('bgm');
     if (audio && audio.paused) audio.play().catch(() => {});
   }, { once: true });
 
   function submitForm() {
+    document.querySelectorAll('.error').forEach(e => e.style.display = 'none');
+
+    const w1 = $('w1');
+    const w2 = $('w2');
     if (!w1.value.trim() || !w2.value.trim()) {
-      alert('Trang này cũng là bắt buộc nha, đừng nghĩ đến chuyện trốn ^^');
+      document.querySelector('#page4 .error').style.display = 'block';
       return;
     }
 
     const data = {
-      name: name.value,
-      major: major.value,
-      phone: phone.value,
-      email: email.value,
-      ezemail: ezemail.value,
-      desire1: d1.value,
-      desire2: d2.value,
-      desire3: d3.value,
+      name: $('name').value,
+      major: $('major').value,
+      phone: $('phone').value,
+      email: $('email').value,
+      ezemail: $('ezemail').value,
+      desire1: $('d1').value,
+      desire2: $('d2').value,
+      desire3: $('d3').value,
+      work1: w1.value,
+      work2: w2.value
+    };
+
+    fetch("https://script.google.com/macros/s/AKfycbxsnBBEDBjYSLluw3W1orRy1q3jsgCYYBwwA2fA4cbJmHynd9rMIPzaBa9QB3vWn09K-Q/exec", {
+      method: "POST",
+      mode: "no-cors",
+      body: JSON.stringify(data),
+      headers: { "Content-Type": "application/json" }
+    }).finally(() => nextPage(5));
+  }
+
+    const data = {
+      name: $('name').value,
+      major: $('major').value,
+      phone: $('phone').value,
+      email: $('email').value,
+      ezemail: $('ezemail').value,
+      desire1: $('d1').value,
+      desire2: $('d2').value,
+      desire3: $('d3').value,
       work1: w1.value,
       work2: w2.value
     };
