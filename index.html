@@ -152,11 +152,26 @@
 </div>
 
 <script>
+  // Cache elements safely after DOM is ready
+  document.addEventListener('DOMContentLoaded', () => {
+    window.name = document.getElementById('name');
+    window.major = document.getElementById('major');
+    window.phone = document.getElementById('phone');
+    window.email = document.getElementById('email');
+    window.ezemail = document.getElementById('ezemail');
+    window.d1 = document.getElementById('d1');
+    window.d2 = document.getElementById('d2');
+    window.d3 = document.getElementById('d3');
+    window.w1 = document.getElementById('w1');
+    window.w2 = document.getElementById('w2');
+
+    nextPage(1);
+  });
+
   function nextPage(n) {
-    // validation before moving forward
     if (n === 3) {
       const fields = [name, major, phone, email, ezemail];
-      if (fields.some(f => !f.value.trim())) {
+      if (fields.some(f => !f || !f.value.trim())) {
         alert('Định đi đâu đấy? I have eyes on you');
         return;
       }
@@ -164,24 +179,27 @@
 
     if (n === 4) {
       const fields = [d1, d2, d3];
-      if (fields.some(f => !f.value.trim())) {
+      if (fields.some(f => !f || !f.value.trim())) {
         alert('Mấy câu này bắt buộc á, trả lời xíu xiu nhưng miễn ko mơ hồ :)');
         return;
       }
     }
 
     document.querySelectorAll('.container').forEach(p => p.classList.add('hidden'));
-    document.getElementById('page' + n).classList.remove('hidden');
+    const target = document.getElementById('page' + n);
+    if (target) target.classList.remove('hidden');
   }
 
   function toggleMusic() {
     const audio = document.getElementById('bgm');
-    audio.paused ? audio.play() : audio.pause();
+    if (!audio) return;
+    audio.paused ? audio.play().catch(() => {}) : audio.pause();
   }
 
-  document.body.addEventListener('click', () => {
+  // Mobile autoplay unlock
+  document.addEventListener('click', () => {
     const audio = document.getElementById('bgm');
-    if (audio.paused) audio.play();
+    if (audio && audio.paused) audio.play().catch(() => {});
   }, { once: true });
 
   function submitForm() {
@@ -209,13 +227,7 @@
       body: JSON.stringify(data),
       headers: { "Content-Type": "application/json" }
     }).finally(() => nextPage(5));
-  };
-
-    
-    }).finally(() => nextPage(5));
   }
-
-  document.addEventListener('DOMContentLoaded', () => nextPage(1));
 </script>
 
 </body>
