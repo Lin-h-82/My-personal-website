@@ -85,7 +85,7 @@
 
 <audio id="bgm" src="Solo Dance.mp3" loop></audio>
 
-<div class="music" onclick="toggleMusic()">🎵 <span>For mutual experience, tap the icon ^^</span></div>
+<div class="music" onclick="toggleMusic()">🎵 <span>For mutual experience, tap the icon</span></div>
 
 <!-- PAGE 1 -->
 <div class="container" id="page1">
@@ -157,70 +157,67 @@
 </div>
 
 <script>
-  // === SAFE ELEMENT ACCESS HELPERS ===
+  // ===== Utility =====
   const $ = (id) => document.getElementById(id);
 
-  document.addEventListener('DOMContentLoaded', () => {
-    nextPage(1);
-  });
+  // ===== Page control =====
+  function showPage(n) {
+    document.querySelectorAll('.container').forEach(p => p.classList.add('hidden'));
+    const target = $('page' + n);
+    if (target) target.classList.remove('hidden');
+  }
 
+  // ===== Navigation with validation =====
   function nextPage(n) {
+    // hide all errors first
     document.querySelectorAll('.error').forEach(e => e.style.display = 'none');
 
+    // validate page 2 -> page 3
     if (n === 3) {
-      const fields = [$("name"), $("major"), $("phone"), $("email"), $("ezemail")];
+      const fields = ['name','major','phone','email','ezemail'].map($);
       if (fields.some(f => !f || !f.value.trim())) {
-        document.querySelector('#page2 .error').style.display = 'block';
+        $('#page2 .error')?.style && ($('#page2 .error').style.display = 'block');
         return;
       }
     }
 
+    // validate page 3 -> page 4
     if (n === 4) {
-      const fields = [$("d1"), $("d2"), $("d3")];
+      const fields = ['d1','d2','d3'].map($);
       if (fields.some(f => !f || !f.value.trim())) {
-        document.querySelector('#page3 .error').style.display = 'block';
+        $('#page3 .error')?.style && ($('#page3 .error').style.display = 'block');
         return;
       }
     }
 
-    document.querySelectorAll('.container').forEach(p => p.classList.add('hidden'));
-    const target = $("page" + n);
-    if (target) target.classList.remove('hidden');
-  }
-    }
-
-    if (n === 4) {
-      const fields = [$("d1"), $("d2"), $("d3")];
-      if (fields.some(f => !f || !f.value.trim())) {
-        alert('Trốn đi đâu đấy? I have eyes on you');
-        return;
-      }
-    }
-
-    document.querySelectorAll('.container').forEach(p => p.classList.add('hidden'));
-    const target = $("page" + n);
-    if (target) target.classList.remove('hidden');
+    showPage(n);
   }
 
+  // ===== Music =====
   function toggleMusic() {
     const audio = $('bgm');
     if (!audio) return;
-    audio.paused ? audio.play().catch(() => {}) : audio.pause();
+    if (audio.paused) {
+      audio.play().catch(() => {});
+    } else {
+      audio.pause();
+    }
   }
 
-  // Mobile audio unlock
-  document.addEventListener('click', () => {
+  // unlock audio on first user interaction (mobile policy)
+  document.addEventListener('pointerdown', () => {
     const audio = $('bgm');
     if (audio && audio.paused) audio.play().catch(() => {});
   }, { once: true });
 
+  // ===== Submit =====
   function submitForm() {
     document.querySelectorAll('.error').forEach(e => e.style.display = 'none');
 
     const w1 = $('w1');
     const w2 = $('w2');
     if (!w1.value.trim() || !w2.value.trim()) {
-      document.querySelector('#page4 .error').style.display = 'block';
+      $('#page4 .error')?.style && ($('#page4 .error').style.display = 'block');
       return;
     }
 
@@ -242,29 +239,13 @@
       mode: "no-cors",
       body: JSON.stringify(data),
       headers: { "Content-Type": "application/json" }
-    }).finally(() => nextPage(5));
+    }).finally(() => showPage(5));
   }
 
-    const data = {
-      name: $('name').value,
-      major: $('major').value,
-      phone: $('phone').value,
-      email: $('email').value,
-      ezemail: $('ezemail').value,
-      desire1: $('d1').value,
-      desire2: $('d2').value,
-      desire3: $('d3').value,
-      work1: w1.value,
-      work2: w2.value
-    };
-
-    fetch("https://script.google.com/macros/s/AKfycbxsnBBEDBjYSLluw3W1orRy1q3jsgCYYBwwA2fA4cbJmHynd9rMIPzaBa9QB3vWn09K-Q/exec", {
-      method: "POST",
-      mode: "no-cors",
-      body: JSON.stringify(data),
-      headers: { "Content-Type": "application/json" }
-    }).finally(() => nextPage(5));
-  }
+  // ===== Init =====
+  document.addEventListener('DOMContentLoaded', () => {
+    showPage(1);
+  });
 </script>
 
 </body>
