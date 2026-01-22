@@ -1,177 +1,257 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Linh Tran - Personal Website</title>
+  <meta charset="UTF-8" />
+  <title>Something for you, RnD Member</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif; }
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top, #0b1c2d, #02040a);
+      color: #ffffff;
+      overflow-x: hidden;
+    }
 
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: #c7f9ff; 
-            color: #333;
-        }
+    .page {
+      display: none;
+      height: 100vh;
+      width: 100vw;
+      padding: 40px 20px;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+      pointer-events: auto;
+    }
 
-        header {
-            background: linear-gradient(135deg, #00c6ff, #0072ff);
-            color: white;
-            padding: 70px 20px;
-            text-align: center;
-        }
+    .page.active { display: flex; flex-direction: column; }
 
-        /* Avatar style */
-        .avatar {
-            width: 160px;
-            height: 160px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 5px solid rgba(255, 255, 255, 0.85);
-            margin-bottom: 18px;
-            animation: fadeIn 2s ease;
-        }
+    h1, h2 { font-weight: 600; }
+    p { max-width: 720px; margin: 12px auto; line-height: 1.6; }
 
-        header h1 {
-            font-size: 55px;
-            margin: 0;
-            animation: fadeIn 1.5s ease;
-            font-weight: 700;
-        }
+    input, textarea {
+      width: 100%;
+      max-width: 520px;
+      padding: 14px;
+      margin: 12px auto;
+      border-radius: 10px;
+      border: none;
+      font-size: 16px;
+      background: #ffffff;
+      color: #000000;
+      outline: none;
+      position: relative;
+      z-index: 3;
+    }
 
-        header p {
-            font-size: 20px;
-            opacity: 0.9;
-            margin-top: 12px;
-        }
+    button {
+      padding: 12px 30px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      background: linear-gradient(135deg, #6dd5fa, #2980b9);
+      color: #fff;
+      margin-top: 10px;
+    }
 
-        section {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
+    .keyword-grid {
+      display: grid;
+      grid-template-columns: repeat(15, 1fr);
+      gap: 8px;
+      max-width: 560px;
+      margin: 20px auto;
+    }
 
-        h2 {
-            color: #0077aa;
-            margin-bottom: 8px;
-        }
+    .keyword-grid input {
+      padding: 18px 0;
+      text-align: center;
+      font-size: 22px;
+      text-transform: uppercase;
+      border-radius: 12px;
+    }
 
-        .card {
-            background: white;
-            padding: 28px;
-            border-radius: 14px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            margin-bottom: 25px;
-            line-height: 1.7;
-        }
+    .gift-box {
+      font-size: 140px;
+      cursor: pointer;
+      transition: transform 0.4s ease;
+    }
 
-        .skill-tag {
-            display: inline-block;
-            background: #00b7ff;
-            color: white;
-            padding: 7px 15px;
-            border-radius: 18px;
-            font-size: 13px;
-            margin: 5px;
-        }
+    .gift-box:hover { transform: scale(1.1); }
 
-        footer {
-            text-align: center;
-            padding: 25px 15px;
-            font-size: 14px;
-            background: #b3eff8;
-            margin-top: 45px;
-        }
+    .gift-open { animation: openGift 1s ease forwards; }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
+    @keyframes openGift {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.3) rotate(8deg); }
+      100% { transform: scale(1); }
+    }
+
+    .stars {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      from { transform: translateY(-10vh); opacity: 1; }
+      to { transform: translateY(110vh); opacity: 0; }
+    }
+  </style>
 </head>
-
 <body>
 
-    <!-- HEADER -->
-    <header>
-        <img src="avatar.png" alt="Linh's Avatar" class="avatar">
-        <h1>Hello, I'm Linh 🩵</h1>
-        <p>Aspiring Developer • Research Lover • Lifelong Learner</p>
-    </header>
+<div class="stars" id="stars"></div>
 
-    <section>
+<div class="page active" id="page1">
+  <h1>Bello ✨</h1>
+  <p>Warm up tí nhỉ ^^</p>
+  <button onclick="goToPage(2)">Bắt đầu</button>
+</div>
 
-        <!-- ABOUT ME -->
-        <div class="card">
-            <h2>✨ About Me</h2>
-            <p>
-                Mình là <strong>Linh Tran</strong>, một người luôn tò mò về cách mọi thứ vận hành và thích khám phá công nghệ.
-                Hành trình với lập trình của mình bắt đầu từ những dòng HTML/CSS đơn giản, và dần dần mình bắt đầu tìm hiểu sâu hơn
-                về cách tạo website, quản lý dự án bằng GitHub và xây dựng personal brand thông qua portfolio online.
-            </p>
-            <p>
-                Ngoài coding, mình còn dành nhiều thời gian cho:  
-                • Tâm lý học  
-                • Research khoa học  
-                • Productivity & note-taking  
-                • Thiết kế UI cơ bản  
-                • Viết báo cáo và phân tích học thuật  
-            </p>
-            <p>
-                Mục tiêu trong năm tới là học JavaScript, xây dựng vài mini projects và tạo một portfolio chỉnh chu để phục vụ học tập/công việc.
-            </p>
-        </div>
+<div class="page" id="page2">
+  <h2>Pardon, who are you again?</h2>
+  <input id="userName" type="text" placeholder="Họ và tên đầy đủ" autocomplete="name" />
+  <button onclick="submitName()">Tiếp tục</button>
+</div>
 
-        <!-- SKILLS -->
-        <div class="card">
-            <h2>🚀 Skills & Tools</h2>
-            <p>Dưới đây là những gì mình đang học và sử dụng:</p>
+<div class="page" id="page3">
+  <h2>Tui có một câu hỏi</h2>
+  <p>Netflix gợi ý phim khác nhau cho mỗi người. Spotify tạo playlist “Chỉ dành cho bạn”.<br/>
+  Những sản phẩm này được xây dựng dựa trên một thuật toán gì?</p>
+  <div class="keyword-grid" id="keywordGrid"></div>
+  <button onclick="checkKeyword()">Xác nhận</button>
+</div>
 
-            <div>
-                <span class="skill-tag">HTML</span>
-                <span class="skill-tag">CSS</span>
-                <span class="skill-tag">JavaScript (Basic)</span>
-                <span class="skill-tag">Git</span>
-                <span class="skill-tag">GitHub</span>
-                <span class="skill-tag">VS Code</span>
-                <span class="skill-tag">Research Writing</span>
-                <span class="skill-tag">Academic Workflow</span>
-                <span class="skill-tag">Data Searching</span>
-                <span class="skill-tag">English B2</span>
-                <span class="skill-tag">Time Management</span>
-            </div>
-        </div>
+<div class="page" id="page4">
+  <h2>Giờ thì bạn đã nắm được resource trong tay, trả lời câu hỏi tiếp theo nha</h2>
+  <p>Góc nhìn của bạn về yếu tố PERSONALIZATION trong thời đại ngày hôm nay.<br/>
+  Startup nên tận dụng yếu tố này như thế nào? Có những hạn chế gì cần lưu ý?</p>
+  <textarea id="openAnswer" rows="5" placeholder="Chia sẻ quan điểm của bạn..."></textarea>
+  <button onclick="submitAnswer()">Hoàn tất</button>
+</div>
 
-        <!-- PROJECTS -->
-        <div class="card">
-            <h2>📁 Projects & Learning Journey</h2>
-            <ul>
-                <li><strong>🌐 Personal Website</strong> – Website này, xây bằng HTML/CSS + GitHub Pages.</li>
-                <li><strong>📚 Study Notes Hub</strong> – Ghi chú các môn như Psychology, OB, Research Method.</li>
-                <li><strong>🧪 GitHub Experiments</strong> – Repo thực hành Git: pull/push/branch/merge.</li>
-                <li><strong>🎨 UI Components</strong> – Tạo button, card, navbar bằng CSS.</li>
-                <li><strong>📝 Mini Blog</strong> – Các bài viết ngắn: phân tích, cảm nhận, review sách.</li>
-            </ul>
-        </div>
+<div class="page" id="page5">
+  <h2>Thank you for your hard work 💫</h2>
+  <p>Nhấp vào hộp quà bên dưới để mở món quà dành riêng cho bạn.</p>
+  <div class="gift-box" onclick="openGift()">🎁</div>
+</div>
 
-        <!-- CONTACT -->
-        <div class="card">
-            <h2>📬 Contact</h2>
-            <p>Kết nối với mình tại:</p>
-            <ul>
-                <li>Email: <strong>khanhlinhtransunflower@gmail.com</strong></li>
-                <li>GitHub: <strong>Lin-h-82</strong></li>
-            </ul>
-        </div>
+<audio autoplay loop>
+  <source src="Try Everything.mp3" type="audio/mpeg">
+</audio>
 
-    </section>
+<script>
+  const GOOGLE_SHEET_API = "https://script.google.com/macros/s/AKfycbwBfwElA1DYT1Xrpm_rM8ZirXdhj4jiZzbPmKWjGI0Yu4mY8MV0_rvNW3-SUFfH-enJ/exec";
 
-    <footer>
-        © 2025 Linh Tran — Built with 🩵 GitHub Pages
-    </footer>
+  const gifts = {
+    "le minh son": "https://docs.google.com/spreadsheets/d/1Pb3QdZhxtV7UfcDqfMOzECzKrSn_b8XoO-NXvkZJKSQ/edit?usp=sharing",
+    "nguyen mai anh": "https://docs.google.com/spreadsheets/d/1GY6W40lxsChp0y7amXyqfZwg50jXXiaHaVJ9aS93dt8/edit?usp=sharing",
+    "pham nguyen bao phuc": "https://docs.google.com/spreadsheets/d/1TkGc34QBVHYKbucHgOUaDh3gZWzhn8Ba-UsRdABKuD8/edit?usp=sharing",
+    "nguyen xuan anh": "https://docs.google.com/spreadsheets/d/19kYlKimxdzRDL72BkryFuQFMCAJ0e2Uo5ytQCgYVm4o/edit?usp=sharing"
+  };
 
+  let userName = "";
+  let normalizedName = "";
+
+  function normalizeName(name) {
+    return name
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  function goToPage(n) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const page = document.getElementById(`page${n}`);
+    page.classList.add('active');
+
+    if (n === 2) {
+      setTimeout(() => document.getElementById('userName').focus(), 100);
+    }
+  }
+
+  function submitName() {
+    const val = document.getElementById('userName').value.trim();
+    if (!val) return alert('Vui lòng nhập đầy đủ họ tên');
+    userName = val;
+    normalizedName = normalizeName(val);
+    goToPage(3);
+  }
+
+  const keyword = "PERSONALIZATION";
+  const grid = document.getElementById('keywordGrid');
+
+  for (let i = 0; i < keyword.length; i++) {
+    const input = document.createElement('input');
+    input.maxLength = 1;
+    input.addEventListener('input', () => {
+      if (input.value && input.nextElementSibling) input.nextElementSibling.focus();
+    });
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Backspace' && !input.value && input.previousElementSibling) {
+        input.previousElementSibling.focus();
+      }
+    });
+    grid.appendChild(input);
+  }
+
+  function checkKeyword() {
+    const value = [...grid.querySelectorAll('input')].map(i => i.value.toUpperCase()).join('');
+    if (value === keyword) goToPage(4);
+    else alert('Keyword chưa chính xác, thử lại nhé');
+  }
+
+  function submitAnswer() {
+    const ans = document.getElementById('openAnswer').value.trim();
+    if (!ans) return alert('Vui lòng nhập câu trả lời');
+
+    fetch(GOOGLE_SHEET_API, {
+      method: 'POST',
+      body: JSON.stringify({
+        name: userName,
+        normalized_name: normalizedName,
+        answer: ans,
+        time: new Date().toISOString()
+      })
+    }).catch(() => {});
+
+    goToPage(5);
+  }
+
+  function openGift() {
+    const box = document.querySelector('.gift-box');
+    box.classList.add('gift-open');
+    const link = gifts[normalizedName];
+    if (link) setTimeout(() => window.location.href = link, 800);
+  }
+
+  const starContainer = document.getElementById('stars');
+  for (let i = 0; i < 90; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random() * 100 + 'vw';
+    star.style.animationDuration = 5 + Math.random() * 10 + 's';
+    star.style.animationDelay = Math.random() * 5 + 's';
+    starContainer.appendChild(star);
+  }
+</script>
 </body>
 </html>
+
+
+
